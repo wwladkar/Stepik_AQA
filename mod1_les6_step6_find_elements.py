@@ -35,7 +35,6 @@ try:
     assert len(goods) == 2
 
 finally:
-    # успеваем скопировать код за 30 секунд
     time.sleep(3)
     # закрываем браузер после всех манипуляций
     browser.quit()
