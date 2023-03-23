@@ -3,7 +3,6 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
-
 link = "https://suninjuly.github.io/math.html"
 
 try:
@@ -27,21 +26,26 @@ try:
     # проверяем значение атрибута disabled у кнопки Submit
     button_submit = browser.find_element(By.CLASS_NAME, "btn")
     button_disabled = button_submit.get_attribute("disabled")
-    print("value of button disable:", button_disabled)
+    print("value of button disabled:", button_disabled)
     assert button_disabled is None
 
     # проверяем значения разных атрибутов у кнопки Submit
     button_class = button_submit.get_attribute("class")
     button_type = button_submit.get_attribute("type")
-    button_style = button_submit.get_attribute("style")
+
     print("Value of button class:", button_class)
     print("Value of button type:", button_type)
+
+    # проверяем значение атрибута style у кнопки Submit
+    button_style = button_submit.get_attribute("style")
     print("Value of button style:", button_style)
+    assert button_style is None, "Attribute 'style' is not None"
+    assert button_style is not None, "Attribute 'style' is None"
 
     # проверяем значение атрибута disabled у кнопки Submit после таймаута (10c)
     time.sleep(10)
     button_disabled = button_submit.get_attribute("disabled")
-    print("value of button disable after 10sec: ", button_disabled)
+    print("value of button disabled after 10sec: ", button_disabled)
     assert button_disabled is not None
 
 finally:
