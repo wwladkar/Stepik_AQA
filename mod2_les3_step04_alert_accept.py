@@ -33,8 +33,12 @@ try:
     button = browser.find_element(By.TAG_NAME, "button")
     button.click()
 
+
 finally:
-    # успеваем скопировать код за 30 секунд
-    time.sleep(30)
+
+    # выводим в консоль ответ
+    alert_text = browser.switch_to.alert.text
+    print(alert_text.split(': ')[-1])
+
     # закрываем браузер после всех манипуляций
     browser.quit()
