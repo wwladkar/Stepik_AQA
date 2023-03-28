@@ -2,17 +2,23 @@ import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
-link = "http://suninjuly.github.io/wait1.html"
+
+link = "http://suninjuly.github.io/wait2.html"
 
 try:
     # открыть страницу
     browser = webdriver.Chrome(ChromeDriverManager().install())
-    browser.implicitly_wait(5)  # искать каждый элемент в течение 5 секунд
     browser.get(link)
 
+    # проверять в течение 5 секунд, пока кнопка не станет кликабельной
+    button = WebDriverWait(browser, 5).until(
+        EC.element_to_be_clickable((By.ID, "verify"))
+    )
+
     # нажать на кнопку
-    button = browser.find_element(By.ID, "verify")
     button.click()
 
     # прочитать сообщение
