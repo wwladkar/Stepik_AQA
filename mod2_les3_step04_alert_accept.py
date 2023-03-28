@@ -1,5 +1,6 @@
 import time
 import math
+import pyperclip
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
@@ -33,12 +34,17 @@ try:
     button = browser.find_element(By.TAG_NAME, "button")
     button.click()
 
+    #  выводим в консоль код ответа
+    alert = browser.switch_to.alert
+    alert_text = alert.text
+    text_answer = alert_text.split(': ')[-1]
+    print(text_answer)
+
+    #  помещаем код ответа в буфер обмена и принимаем alert
+    pyperclip.copy(text_answer)
+    alert.accept()
 
 finally:
-
-    # выводим в консоль ответ
-    alert_text = browser.switch_to.alert.text
-    print(alert_text.split(': ')[-1])
 
     # закрываем браузер после всех манипуляций
     browser.quit()
