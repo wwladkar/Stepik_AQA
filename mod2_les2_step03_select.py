@@ -22,14 +22,16 @@ try:
     print(summ)
     value = str(summ)
 
-    select = Select(browser.find_element(By.TAG_NAME, "select"))
+    # выбрать элемент из выпадающего списка со значением value
+    select = Select(browser.find_element(By.ID, "dropdown"))
     select.select_by_value(value)
 
+    # нажать кнопку
     button = browser.find_element(By.CLASS_NAME, "btn")
     button.click()
 
 finally:
     # успеваем скопировать код за 30 секунд
     time.sleep(30)
-    # закрываем браузер после всех манипуляций
+    # закрыть браузер после всех манипуляций
     browser.quit()
