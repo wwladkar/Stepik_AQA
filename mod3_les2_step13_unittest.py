@@ -1,14 +1,20 @@
 import time
 import unittest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 
 
 class TestReg(unittest.TestCase):
     def test_registration1(self):
+
+        options = Options()
+        options.add_argument("start-maximized")
+        browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
         link = "http://suninjuly.github.io/registration1.html"
-        browser = webdriver.Chrome(ChromeDriverManager().install())
         browser.get(link)
 
         # Ваш код, который заполняет обязательные поля
@@ -36,8 +42,12 @@ class TestReg(unittest.TestCase):
         self.assertEqual("Congratulations! You have successfully registered!", welcome_text, msg=None)
 
     def test_registration2(self):
+
+        options = Options()
+        options.add_argument("start-maximized")
+        browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
         link = "http://suninjuly.github.io/registration2.html"
-        browser = webdriver.Chrome(ChromeDriverManager().install())
         browser.get(link)
 
         # Ваш код, который заполняет обязательные поля
