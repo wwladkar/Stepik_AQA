@@ -21,6 +21,7 @@ def browser():
 
 class TestMainPage1:
 
+    @pytest.mark.positive
     def test_registration1(self, browser):
 
         link = "http://suninjuly.github.io/registration1.html"
@@ -50,6 +51,7 @@ class TestMainPage1:
         # с помощью assertEqual проверяем, что ожидаемый текст совпадает с текстом на странице сайта
         assert "Congratulations! You have successfully registered!" == welcome_text
 
+    @pytest.mark.negative
     def test_registration2(self, browser):
 
         link = "http://suninjuly.github.io/registration2.html"
