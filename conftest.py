@@ -7,26 +7,25 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 
 
-@pytest.fixture(scope="function")  # декоратор фикстуры с областью видимости "function"
-def browser():
-    print("\nstart browser for test..")
-    options = Options()
-    options.add_argument("start-maximized")
-    browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+def pytest_addoption(parser):
+    parser.addoption('--browser_name', action='store', default="chrome",
+                     help="Choose browser: chrome or firefox")
+
+
+@pytest.fixture(scope="function")
+def browser(request):
+    browser_name = request.config.getoption("browser_name")
+
+    if browser_name == "chrome":
+        print("\nstart chrome browser for test..")
+        options = Options()
+        options.add_argument("start-maximized")
+        browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+    elif browser_name == "firefox":
+        print("\nstart firefox browser for test..")
+        browser = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
+    else:
+        raise pytest.UsageError("--browser_name should be chrome or firefox")
     yield browser
-    # этот код выполнится после завершения теста
     print("\nquit browser..")
     browser.quit()
-
-
-@pytest.fixture(scope="function")  # декоратор фикстуры с областью видимости "function"
-def driver():
-    print("\nstart driver for test..")
-    driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-    yield driver
-    # этот код выполнится после завершения теста
-    print("\nquit driver..")
-    driver.quit()
-
-
-
